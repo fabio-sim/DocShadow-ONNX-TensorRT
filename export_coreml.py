@@ -17,7 +17,7 @@ weights = "sd7k"  # "jung", "kligler"
 def WithBias_LayerNorm_forward(self, x):
     """Manually compute variance instead of using Tensor.var()"""
     mu = x.mean(-1, keepdim=True)
-    sigma = (x - mu).pow(2).mean(1, keepdim=True)
+    sigma = (x - mu).pow(2).mean(-1, keepdim=True)
     return (x - mu) / torch.sqrt(sigma + 1e-5) * self.weight + self.bias
 
 
